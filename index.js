@@ -1,3 +1,9 @@
+const _ = require("lodash");
+
+
+console.log(_.tail([1, 2, 3, 4]));
+
+
 function clearNames() {
     var rootDiv = document.getElementById('listContainer');
     if (rootDiv) {
@@ -14,6 +20,9 @@ function initDocument() {
 }
 
 function initUsersNames() {
+
+
+
     var rootDiv = document.createElement('div');
     rootDiv.id = 'listContainer';
     var userNamesContainer = document.createElement('div');
@@ -120,6 +129,61 @@ const userNames = [
         firstName: 'Horace',
         lastName: 'Grant',
         handle: '@HGrant'
+    },
+    {
+        firstName: 'Alex',
+        lastName: 'Baumann',
+        handle: '@abaumann'
+    },
+    {
+        firstName: 'Norman',
+        lastName: 'Birge',
+        handle: '@nbirge'
+    },
+    {
+        firstName: 'Phil',
+        lastName: 'Duxburry',
+        handle: '@pduxburry'
+    },
+    {
+        firstName: 'Amir',
+        lastName: 'Ouyed',
+        handle: '@aouyed'
+    },
+    {
+        firstName: 'Thadeus',
+        lastName: 'Stump',
+        handle: '@tstump'
+    },
+    {
+        firstName: 'Nokolas',
+        lastName: 'Tesla',
+        handle: '@ntesla'
+    },
+    {
+        firstName: 'Johannes',
+        lastName: 'Keppler',
+        handle: '@jkeppler'
+    },
+    {
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        handle: '@ggalelei'
+    },
+    {
+        firstName: 'Isaac',
+        lastName: 'Newton',
+        handle: '@inewton'
+    },
+    {
+        firstName: 'Satyendra',
+        lastName: 'Bose',
+        handle: '@sbose'
+    },
+    {
+        firstName: 'Leonard',
+        lastName: 'Euler',
+        handle: '@leuler'
     }
 ];
 
