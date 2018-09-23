@@ -1,4 +1,18 @@
 
+
+const userMessages = [];
+
+const debounce = (func, delay) => {
+    let inDebounce;
+    return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(inDebounce);
+        inDebounce = setTimeout(() => func.apply(context, args), delay)
+    }
+};
+
+
 function clearChildElementsById(elementId) {
     var rootDiv = document.getElementById(elementId);
     if (rootDiv) {
@@ -176,17 +190,6 @@ const userNames = [
     }
 ];
 
-const userMessages = [];
-
-const debounce = (func, delay) => {
-    let inDebounce;
-    return function () {
-        const context = this;
-        const args = arguments;
-        clearTimeout(inDebounce);
-        inDebounce = setTimeout(() => func.apply(context, args), delay)
-    }
-};
 
 function initConstantTimeNameFileter() {
     /* EXTRA CREDIT */
