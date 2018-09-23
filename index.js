@@ -247,26 +247,6 @@ function generateFilteredNames(filteredNames) {
         nameElement.appendChild(text);
         namesContainer.appendChild(nameElement);
 
-        /*
-            TODO :: ADD CLICK EVENT LISTENER [addEventListener] TO EACH NAME ELEMENT.
-            IF THE USER CLICKS ON A FILTERED NAME THEN THEN A MESSAGE IS OUTPUT
-            USING THE ADD MESSAGE FUNCTION THAT REPLACES THE USER name WITH THE USER HANDLE.
-            THE addHandleMessage FUNCTION SHOULD BE INVOKED FROM INSIDE THE CALLBACK OF THE EVENT LISTENER.
-
-            TIPS:
-                BRUTE FORCE :: ASIGN A UNIQUE ID TO EACH NAME ELEMENT, GRAB ID FROM THE EVENT AND
-                               PASS IT AS AN ARGUMENT TO ADD MESSAGE FUNCTION THEN SEARCH USER NAMES ARRAY
-
-                DATA ATTRIBUTE :: ASSIGN A DATA ATTRIBUTE CALLED [handle] TO EACH THE NAME ELEMENT
-                                  GRAB DATA ATTRIBUTE FROM THE EVENT AND PASS IT AS AN ARGUMENT TO
-                                  ADD MESSAGE FUNCTION THEN SEARCH USER NAMES ARRAY
-
-            EXAMPLE: @chandler => @CGegg
-        */
-
-        //TODO WRAP THIS FUNCTION WITH EVENT LISTENER AND UNCOMMENT IT
-        //TODO REPLACE [myHandle] WITH THE USERS CORRECT HANDLE
-
         nameElement.addEventListener(
             "click",
             () => addHandleMessage(name.handle));
@@ -277,7 +257,6 @@ function generateFilteredNames(filteredNames) {
 }
 
 function addHandleMessage(handle) {
-    // console.log(handle);
     var messagesContainer = document.getElementById(MESSAGES_CONTAINER_ID);
     var messageDiv = document.createElement('p');
     var handleSpan = document.createElement('span');
@@ -287,20 +266,22 @@ function addHandleMessage(handle) {
 
     handleSpan.appendChild(handleText);
 
-    // TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
-    //        WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE
+    //assuming that when a user types a message with a handle, they place a space " " after: @grace hi how are you?
+    console.log(document.getElementById("inputText").innerText);
+    var originalMessage = document.getElementById("inputText").value.trim();
+    var indexAfterHandle = originalMessage.indexOf(" ");
 
-    //TODO excluding the originally typed user name, replace this text with any additional user text from the original user text message
 
-    var dummyText = 'TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
-                     WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE';
-    var messageText = document.createTextNode(`${dummyText} `);
+    var templateText = originalMessage.slice(indexAfterHandle);
+    var messageText = document.createTextNode(`${templateText} `);
 
     messageDiv.appendChild(handleSpan);
     messageDiv.appendChild(messageText);
     messagesContainer.appendChild(messageDiv);
 
-    clearFilteredNames();
+    clearChildElementsById(FILTERED_NAMES_CONTAINER_ID);
+    clearChildElementsById(LIST_CONTAINER_ID);
+    initUsersNames();
     clearUserInput();
 }
 
