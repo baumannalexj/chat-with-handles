@@ -1,8 +1,3 @@
-const _ = require("lodash");
-
-
-console.log(_.tail([1, 2, 3, 4]));
-
 
 function clearNames() {
     var rootDiv = document.getElementById('listContainer');
