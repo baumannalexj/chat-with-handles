@@ -15,9 +15,6 @@ function initDocument() {
 }
 
 function initUsersNames() {
-
-
-
     var rootDiv = document.createElement('div');
     rootDiv.id = 'listContainer';
     var userNamesContainer = document.createElement('div');
@@ -134,8 +131,8 @@ const userNames = [
     },
     {
         firstName: 'Phil',
-        lastName: 'Duxburry',
-        handle: '@pduxburry'
+        lastName: 'Duxbury',
+        handle: '@pduxbury'
     },
     {
         firstName: 'Amir',
@@ -182,14 +179,14 @@ const userNames = [
 const userMessages = [];
 
 const debounce = (func, delay) => {
-    let inDebounce
+    let inDebounce;
     return function () {
-        const context = this
-        const args = arguments
-        clearTimeout(inDebounce)
+        const context = this;
+        const args = arguments;
+        clearTimeout(inDebounce);
         inDebounce = setTimeout(() => func.apply(context, args), delay)
     }
-}
+};
 
 function initConstantTimeNameFileter() {
     /* EXTRA CREDIT */
@@ -224,14 +221,15 @@ function initFilteredNames(filteredNames) {
     var rootDiv = document.createElement('div');
     rootDiv.id = 'filteredNamesContainer';
     var namesContainer = document.createElement('div');
+
     filteredNames.forEach((name) => {
-        var nameElm = document.createElement('button');
-        nameElm.style['background-color'] = 'dodgerblue';
-        nameElm.style['cursor'] = 'pointer';
-        nameElm.setAttribute('class', 'filtered-name');
+        var nameElement = document.createElement('button');
+        nameElement.style['background-color'] = 'dodgerblue';
+        nameElement.style['cursor'] = 'pointer';
+        nameElement.setAttribute('class', 'filtered-name');
         var text = document.createTextNode(`${name.firstName} ${name.lastName}`);
-        nameElm.appendChild(text);
-        namesContainer.appendChild(nameElm);
+        nameElement.appendChild(text);
+        namesContainer.appendChild(nameElement);
 
         /*
             TODO :: ADD CLICK EVENT LISTENER [addEventListener] TO EACH NAME ELEMENT.
