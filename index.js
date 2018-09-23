@@ -19,7 +19,11 @@ function initUsersNames() {
     var userNamesContainer = document.createElement('div');
     userNames.forEach(function (userName, index) {
         var childDiv = document.createElement('div');
-        var text = document.createTextNode(index.toString().concat(' .) ').concat(`${userName.firstName} ${userName.lastName}`));
+        var text = document.createTextNode(
+            index.toString()
+                .concat(' .) ')
+                .concat(`${userName.firstName} ${userName.lastName}`));
+
         childDiv.appendChild(text);
         userNamesContainer.appendChild(childDiv);
     });
@@ -30,8 +34,10 @@ function initUsersNames() {
 function initMessages() {
     var rootDiv = document.createElement('div');
     var messagesContainer = document.createElement('div');
+
     messagesContainer.id = 'messagesContainer';
     messagesContainer.style['float'] = 'left';
+
     document.body.appendChild(messagesContainer);
 }
 
@@ -45,8 +51,10 @@ function addPlainMessage() {
     var messagesContainer = document.getElementById('messagesContainer');
     var messageDiv = document.createElement('p');
     const text = document.createTextNode(userText);
+
     messageDiv.appendChild(text);
     messagesContainer.appendChild(messageDiv);
+
     clearUserInput();
 }
 
@@ -54,14 +62,18 @@ function addHandleMessage(handle) {
     var messagesContainer = document.getElementById('messagesContainer');
     var messageDiv = document.createElement('p');
     var handleSpan = document.createElement('span');
+
     handleSpan.style['color'] = 'dodgerblue';
     handleText = document.createTextNode(handle);
+
     handleSpan.appendChild(handleText);
     // TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
     //        WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE
+
     var dummyText = 'TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
                      WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE';
     var messageText = document.createTextNode(`${dummyText} `);
+
     messageDiv.appendChild(handleSpan);
     messageDiv.appendChild(messageText);
     messagesContainer.appendChild(messageDiv);
@@ -196,6 +208,7 @@ function clearUserInput() {
 
 function clearFilteredNames() {
     const filteredNames = document.getElementsByClassName('filtered-name');
+
     Array.from(filteredNames).forEach((filteredName) => {
         filteredName.remove();
     });
