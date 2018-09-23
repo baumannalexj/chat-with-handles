@@ -1,6 +1,6 @@
 
-function clearNames() {
-    var rootDiv = document.getElementById('listContainer');
+function clearChildElementsById(elementId) {
+    var rootDiv = document.getElementById(elementId);
     if (rootDiv) {
         while (rootDiv.hasChildNodes()) {
             rootDiv.removeChild(rootDiv.lastChild);
@@ -9,8 +9,10 @@ function clearNames() {
 }
 
 function initDocument() {
-    clearNames();
+    clearChildElementsById("listContainer");
     initUsersNames();
+
+    clearChildElementsById("messagesContainer");
     initMessages();
 }
 
@@ -33,7 +35,6 @@ function initUsersNames() {
 }
 
 function initMessages() {
-    var rootDiv = document.createElement('div');
     var messagesContainer = document.createElement('div');
 
     messagesContainer.id = 'messagesContainer';
@@ -43,7 +44,7 @@ function initMessages() {
 }
 
 function clearMessages() {
-    /*TODO CLEAR MESSAGES FROM DOCUMENT WHEN USER CLICKS THE [CLEAR MESSAGES] BUTTON */
+    clearChildElementsById("messagesContainer");
 }
 
 function addPlainMessage() {
@@ -216,7 +217,7 @@ function filterNames(userText) {
 }
 
 function initFilteredNames(filteredNames) {
-    clearNames();
+    clearChildElementsById();
     var rootDiv = document.createElement('div');
     rootDiv.id = 'filteredNamesContainer';
     var namesContainer = document.createElement('div');
