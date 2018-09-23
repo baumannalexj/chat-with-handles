@@ -1,5 +1,10 @@
 
+const LIST_CONTAINER_ID = "listContainer";
+const MESSAGES_CONTAINER_ID = "messagesContainer";
+const FILTERED_NAMES_CONTAINER_ID = "filteredNamesContainer";
+
 const userMessages = [];
+
 
 const debounce = (func, delay) => {
     let inDebounce;
@@ -22,16 +27,20 @@ function clearChildElementsById(elementId) {
 }
 
 function initDocument() {
-    clearChildElementsById("listContainer");
+    clearChildElementsById(LIST_CONTAINER_ID);
     initUsersNames();
 
-    clearChildElementsById("messagesContainer");
+    clearChildElementsById(MESSAGES_CONTAINER_ID);
     initMessages();
 }
 
 function initUsersNames() {
-    var rootDiv = document.createElement('div');
-    rootDiv.id = 'listContainer';
+    var rootDiv = document.getElementById(LIST_CONTAINER_ID);
+    if (!rootDiv) {
+        var rootDiv = document.createElement('div');
+        rootDiv.id = LIST_CONTAINER_ID;
+    }
+
     var userNamesContainer = document.createElement('div');
 
     userNames.forEach(function (userName, index) {
@@ -51,21 +60,21 @@ function initUsersNames() {
 function initMessages() {
     var messagesContainer = document.createElement('div');
 
-    messagesContainer.id = 'messagesContainer';
+    messagesContainer.id = MESSAGES_CONTAINER_ID;
     messagesContainer.style['float'] = 'left';
 
     document.body.appendChild(messagesContainer);
 }
 
 function clearMessages() {
-    clearChildElementsById("messagesContainer");
+    clearChildElementsById(MESSAGES_CONTAINER_ID);
 }
 
 function addPlainMessage() {
     const userText = getTrimmedUserText();
 
     if (!_.isEmpty(userText)) {
-        var messagesContainer = document.getElementById('messagesContainer');
+        var messagesContainer = document.getElementById(MESSAGES_CONTAINER_ID);
         var messageDiv = document.createElement('p');
         const text = document.createTextNode(userText);
 
@@ -77,7 +86,7 @@ function addPlainMessage() {
 }
 
 function addHandleMessage(handle) {
-    var messagesContainer = document.getElementById('messagesContainer');
+    var messagesContainer = document.getElementById(MESSAGES_CONTAINER_ID);
     var messageDiv = document.createElement('p');
     var handleSpan = document.createElement('span');
 
@@ -229,9 +238,16 @@ function filterNames(userText) {
 }
 
 function initFilteredNames(filteredNames) {
-    clearChildElementsById("listContainer");
-    var rootDiv = document.createElement('div');
-    rootDiv.id = 'filteredNamesContainer';
+    clearChildElementsById(LIST_CONTAINER_ID);
+
+    var rootDiv = document.getElementById(FILTERED_NAMES_CONTAINER_ID);
+    clearChildElementsById(FILTERED_NAMES_CONTAINER_ID);
+
+    if (!rootDiv) {
+        rootDiv = document.createElement('div');
+        rootDiv.id = FILTERED_NAMES_CONTAINER_ID;
+    }
+
     var namesContainer = document.createElement('div');
 
     filteredNames.forEach((name) => {
@@ -272,7 +288,9 @@ function initFilteredNames(filteredNames) {
         // addHandleMessage('myHandle');
 
     });
-    document.body.appendChild(namesContainer);
+
+    rootDiv.appendChild(namesContainer);
+    document.body.appendChild(rootDiv);
 }
 
 function clearUserInput() {
@@ -306,6 +324,9 @@ function searchNames() {
         const filteredNames = filterNames(userText);
         initFilteredNames(filteredNames);
     } else {
+        clearChildElementsById(FILTERED_NAMES_CONTAINER_ID);
+        clearChildElementsById(LIST_CONTAINER_ID);
+        initUsersNames();
         console.log('MISSING @ IN USER TEXT');
     }
 }
