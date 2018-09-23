@@ -1,5 +1,4 @@
 
-
 const userMessages = [];
 
 const debounce = (func, delay) => {
@@ -34,6 +33,7 @@ function initUsersNames() {
     var rootDiv = document.createElement('div');
     rootDiv.id = 'listContainer';
     var userNamesContainer = document.createElement('div');
+
     userNames.forEach(function (userName, index) {
         var childDiv = document.createElement('div');
         var text = document.createTextNode(
@@ -62,13 +62,16 @@ function clearMessages() {
 }
 
 function addPlainMessage() {
-    const userText = getUserText();
-    var messagesContainer = document.getElementById('messagesContainer');
-    var messageDiv = document.createElement('p');
-    const text = document.createTextNode(userText);
+    const userText = getTrimmedUserText();
 
-    messageDiv.appendChild(text);
-    messagesContainer.appendChild(messageDiv);
+    if (!_.isEmpty(userText)) {
+        var messagesContainer = document.getElementById('messagesContainer');
+        var messageDiv = document.createElement('p');
+        const text = document.createTextNode(userText);
+
+        messageDiv.appendChild(text);
+        messagesContainer.appendChild(messageDiv);
+    }
 
     clearUserInput();
 }
@@ -82,8 +85,11 @@ function addHandleMessage(handle) {
     handleText = document.createTextNode(handle);
 
     handleSpan.appendChild(handleText);
+
     // TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
     //        WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE
+
+    //TODO excluding the originally typed user name, replace this text with any additional user text from the original user text message
 
     var dummyText = 'TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
                      WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE';
@@ -153,9 +159,9 @@ const userNames = [
         handle: '@aouyed'
     },
     {
-        firstName: 'Thadeus',
+        firstName: 'Daniel',
         lastName: 'Stump',
-        handle: '@tstump'
+        handle: '@dstump'
     },
     {
         firstName: 'Nokolas',
@@ -170,7 +176,7 @@ const userNames = [
     {
         firstName: 'Galileo',
         lastName: 'Galilei',
-        handle: '@ggalelei'
+        handle: '@ggalilei'
     },
     {
         firstName: 'Isaac',
@@ -190,46 +196,57 @@ const userNames = [
 ];
 
 
-function initConstantTimeNameFileter() {
+function initConstantTimeNameFilter() {
     /* EXTRA CREDIT */
 }
 
 function constantTimeNameFilter(userText) {
     /* EXTRA CREDIT :: CONVERT filterNames FUNCTION TO DO CONSTANT TIME LOOK UP.
-    THIS WILL REQUIRE initConstantTimeNameFileter ON PAGE LOAD AS WELL */
+    THIS WILL REQUIRE initConstantTimeNameFilter ON PAGE LOAD AS WELL */
 }
 
 function filterNames(userText) {
     const firstThreeChars = userText.toLowerCase().slice(1, 4);
-    var re = new RegExp(firstThreeChars, 'g');
-    console.log(`First three characters: ${firstThreeChars} `);
+    var firstThreeCharsRegex = new RegExp(firstThreeChars, 'g');
     console.log(`First three characters: ${firstThreeChars} `);
     const filteredNames = [];
+
     userNames.forEach((userName) => {
         const fullname = `${userName.firstName.toLowerCase()} ${userName.lastName.toLowerCase()}`;
-        var isMatch = !!userName.firstName.toLowerCase().match(re) || !!userName.lastName.toLowerCase().match(re);
+        var isMatch =
+            !!userName.firstName.toLowerCase().match(firstThreeCharsRegex)
+            || !!userName.lastName.toLowerCase().match(firstThreeCharsRegex);
+
         console.log(`Fullname: ${fullname}`);
         console.log(isMatch);
-        console.log(`Fullname: ${fullname}`);
+
         if (isMatch) {
             filteredNames.push(userName);
         }
     });
+
     return filteredNames;
 }
 
 function initFilteredNames(filteredNames) {
-    clearChildElementsById();
+    clearChildElementsById("listContainer");
     var rootDiv = document.createElement('div');
     rootDiv.id = 'filteredNamesContainer';
     var namesContainer = document.createElement('div');
 
     filteredNames.forEach((name) => {
+
         var nameElement = document.createElement('button');
         nameElement.style['background-color'] = 'dodgerblue';
         nameElement.style['cursor'] = 'pointer';
         nameElement.setAttribute('class', 'filtered-name');
+        nameElement.setAttribute('data', 'handle');
+
+        nameElement.addEventListener("click", console.log("event listener working"));
+
+
         var text = document.createTextNode(`${name.firstName} ${name.lastName}`);
+
         nameElement.appendChild(text);
         namesContainer.appendChild(nameElement);
 
@@ -271,15 +288,17 @@ function clearFilteredNames() {
 
 }
 
-function getUserText() {
-    return document.getElementById('inputText').value.trim();
+function getTrimmedUserText() {
+    return document
+        .getElementById('inputText')
+        .value
+        .trim();
 }
 
 function searchNames() {
-    const userText = getUserText();
+    const userText = getTrimmedUserText();
     console.log('Search names ...');
     console.log(userText);
-    console.log('Search names ...');
 
     const firstChar = userText[0] || '';
     if (firstChar === '@') {
@@ -293,12 +312,15 @@ function searchNames() {
 
 // TODO UPDATE THE DEBOUNCE DELAY TO MORE CLOSELY RESEMBLE USER TYPING
 document.addEventListener("DOMContentLoaded", function (event) {
-    document.getElementById('inputText').addEventListener(
-        'input',
-        debounce(
-            searchNames,
-            20000
-        )
-    );
+
+    document
+        .getElementById('inputText')
+        .addEventListener(
+            'input',
+            debounce(
+                searchNames,
+                500
+            )
+        );
     initDocument();
 });
