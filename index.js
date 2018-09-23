@@ -310,7 +310,6 @@ function searchNames() {
     }
 }
 
-// TODO UPDATE THE DEBOUNCE DELAY TO MORE CLOSELY RESEMBLE USER TYPING
 document.addEventListener("DOMContentLoaded", function (event) {
 
     document
