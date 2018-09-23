@@ -27,8 +27,11 @@ function clearChildElementsById(elementId) {
 }
 
 function initDocument() {
+    initFilteredNames();
+
     clearChildElementsById(LIST_CONTAINER_ID);
     initUsersNames();
+
 
     clearChildElementsById(MESSAGES_CONTAINER_ID);
     initMessages();
@@ -39,6 +42,7 @@ function initUsersNames() {
     if (!rootDiv) {
         var rootDiv = document.createElement('div');
         rootDiv.id = LIST_CONTAINER_ID;
+        document.body.appendChild(rootDiv);
     }
 
     var userNamesContainer = document.createElement('div');
@@ -54,7 +58,6 @@ function initUsersNames() {
         userNamesContainer.appendChild(childDiv);
     });
     rootDiv.appendChild(userNamesContainer);
-    document.body.appendChild(rootDiv);
 }
 
 function initMessages() {
@@ -82,33 +85,6 @@ function addPlainMessage() {
         messagesContainer.appendChild(messageDiv);
     }
 
-    clearUserInput();
-}
-
-function addHandleMessage(handle) {
-    var messagesContainer = document.getElementById(MESSAGES_CONTAINER_ID);
-    var messageDiv = document.createElement('p');
-    var handleSpan = document.createElement('span');
-
-    handleSpan.style['color'] = 'dodgerblue';
-    handleText = document.createTextNode(handle);
-
-    handleSpan.appendChild(handleText);
-
-    // TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
-    //        WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE
-
-    //TODO excluding the originally typed user name, replace this text with any additional user text from the original user text message
-
-    var dummyText = 'TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
-                     WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE';
-    var messageText = document.createTextNode(`${dummyText} `);
-
-    messageDiv.appendChild(handleSpan);
-    messageDiv.appendChild(messageText);
-    messagesContainer.appendChild(messageDiv);
-
-    clearFilteredNames();
     clearUserInput();
 }
 
@@ -237,7 +213,7 @@ function filterNames(userText) {
     return filteredNames;
 }
 
-function initFilteredNames(filteredNames) {
+function initFilteredNames() {
     clearChildElementsById(LIST_CONTAINER_ID);
 
     var rootDiv = document.getElementById(FILTERED_NAMES_CONTAINER_ID);
@@ -246,7 +222,14 @@ function initFilteredNames(filteredNames) {
     if (!rootDiv) {
         rootDiv = document.createElement('div');
         rootDiv.id = FILTERED_NAMES_CONTAINER_ID;
+        document.body.appendChild(rootDiv);
     }
+
+    return rootDiv;
+}
+
+function generateFilteredNames(filteredNames) {
+    var rootDiv = initFilteredNames();
 
     var namesContainer = document.createElement('div');
 
@@ -257,8 +240,6 @@ function initFilteredNames(filteredNames) {
         nameElement.style['cursor'] = 'pointer';
         nameElement.setAttribute('class', 'filtered-name');
         nameElement.setAttribute('data', 'handle');
-
-        nameElement.addEventListener("click", console.log("event listener working"));
 
 
         var text = document.createTextNode(`${name.firstName} ${name.lastName}`);
@@ -285,12 +266,42 @@ function initFilteredNames(filteredNames) {
 
         //TODO WRAP THIS FUNCTION WITH EVENT LISTENER AND UNCOMMENT IT
         //TODO REPLACE [myHandle] WITH THE USERS CORRECT HANDLE
-        // addHandleMessage('myHandle');
+
+        nameElement.addEventListener(
+            "click",
+            () => addHandleMessage(name.handle));
 
     });
 
     rootDiv.appendChild(namesContainer);
-    document.body.appendChild(rootDiv);
+}
+
+function addHandleMessage(handle) {
+    // console.log(handle);
+    var messagesContainer = document.getElementById(MESSAGES_CONTAINER_ID);
+    var messageDiv = document.createElement('p');
+    var handleSpan = document.createElement('span');
+
+    handleSpan.style['color'] = 'dodgerblue';
+    handleText = document.createTextNode(handle);
+
+    handleSpan.appendChild(handleText);
+
+    // TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
+    //        WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE
+
+    //TODO excluding the originally typed user name, replace this text with any additional user text from the original user text message
+
+    var dummyText = 'TODO:: EXCLUDING THE ORIGINALLY TYPED USER NAME REPLACE THIS TEXT \
+                     WITH ANY ADDITIONAL USER TEXT FROM THE ORIGIN USER TEXT MESSAGE';
+    var messageText = document.createTextNode(`${dummyText} `);
+
+    messageDiv.appendChild(handleSpan);
+    messageDiv.appendChild(messageText);
+    messagesContainer.appendChild(messageDiv);
+
+    clearFilteredNames();
+    clearUserInput();
 }
 
 function clearUserInput() {
@@ -322,7 +333,7 @@ function searchNames() {
     if (firstChar === '@') {
         console.log('filter names ...');
         const filteredNames = filterNames(userText);
-        initFilteredNames(filteredNames);
+        generateFilteredNames(filteredNames);
     } else {
         clearChildElementsById(FILTERED_NAMES_CONTAINER_ID);
         clearChildElementsById(LIST_CONTAINER_ID);
