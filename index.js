@@ -97,8 +97,7 @@ function addHandleMessage(handle) {
     clearUserInput();
 }
 
-//TODO SET THE FLAG TO FALS ONCE YOU UNDERSTAND THE ASSIGNMENT
-const instructionsFlag = true;
+const instructionsFlag = false;
 if (instructionsFlag) {
     console.log(`README`);
     console.log(`
