@@ -22,7 +22,7 @@ function initUsersNames() {
         var childDiv = document.createElement('div');
         var text = document.createTextNode(
             index.toString()
-                .concat(' .) ')
+                .concat('.) ')
                 .concat(`${userName.firstName} ${userName.lastName}`));
 
         childDiv.appendChild(text);
@@ -44,7 +44,6 @@ function initMessages() {
 
 function clearMessages() {
     /*TODO CLEAR MESSAGES FROM DOCUMENT WHEN USER CLICKS THE [CLEAR MESSAGES] BUTTON */
-    /* EXTRA CREDIT INCLUDE A SCRIPT TAG THATS FETCHES BOOTSTRAP CSS STLYINGS AND STYLE THE BUTTONS */
 }
 
 function addPlainMessage() {
