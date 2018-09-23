@@ -106,9 +106,6 @@ if (instructionsFlag) {
 }
 
 
-/* TODO ADD ADDITONALY
-   OBJECTS LIKE THE ONES BELOW, MINIMUM OF TEN.
-   EACH MUST CONTAIN A FIRST AND LAST NAME AND HANDLE */
 const userNames = [
     {
         firstName: 'Chandler',
