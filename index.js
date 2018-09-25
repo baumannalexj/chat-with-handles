@@ -1,3 +1,7 @@
+/**
+ *  alexander baumann
+ * https://github.com/baumannalexj/chat-with-handles
+ */
 
 const LIST_CONTAINER_ID = "listContainer";
 const MESSAGES_CONTAINER_ID = "messagesContainer";
@@ -292,9 +296,10 @@ function clearUserInput() {
 function clearFilteredNames() {
     const filteredNames = document.getElementsByClassName('filtered-name');
 
-    Array.from(filteredNames).forEach((filteredName) => {
-        filteredName.remove();
-    });
+    Array.from(filteredNames)
+        .forEach((filteredName) => {
+            filteredName.remove();
+        });
 
 }
 
